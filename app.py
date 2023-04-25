@@ -23,7 +23,10 @@ def gravar():
   email = request.form['email']
   senha = request.form['senha']
   if nome and email and senha:
-    print(nome, email, senha)
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('insert into tbl_user (user_name, user_email, user_password) VALUES (%s, %s, %s)', (nome, email, senha))
+    conn.commit()
   return render_template('login.html')
 
 
