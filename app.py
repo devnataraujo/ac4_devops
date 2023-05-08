@@ -29,6 +29,14 @@ def gravar():
     conn.commit()
   return render_template('login.html')
 
+@app.route('/listar', methods=['POST','GET'])
+def listar():
+  conn = mysql.connect()
+  cursor = conn.cursor()
+  cursor.execute('select user_name, user_username, user_password from tbl_user')
+  data = cursor.fetchall()
+  conn.commit()
+  return render_template('lista.html', datas=data)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5008))
